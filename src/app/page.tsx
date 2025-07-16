@@ -31,7 +31,7 @@ export default function DashboardPage() {
           <div className="relative isolate overflow-hidden rounded-b-2xl border-b bg-primary/10 mb-8">
             <div className="mx-auto max-w-7xl px-6 py-12 sm:py-16 lg:px-8">
               <div className="mx-auto max-w-2xl text-center">
-                <h2 className="text-4xl font-bold tracking-tight text-primary sm:text-5xl">Elevate Your Marketing</h2>
+                <h2 className="text-4xl font-bold tracking-tight text-primary sm:text-5xl">My Digital Hub</h2>
                 <p className="mt-6 text-lg leading-8 text-foreground/80">
                   Discover a curated collection of AI-powered tools designed to streamline your workflow and amplify your brand's voice.
                 </p>

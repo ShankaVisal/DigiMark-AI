@@ -1,3 +1,4 @@
+
 "use client";
 
 import {
@@ -30,7 +31,6 @@ export function UserAvatar() {
             <AvatarImage
               src="https://placehold.co/100x100.png"
               alt="Guest User"
-              data-ai-hint="person avatar"
             />
             <AvatarFallback>GU</AvatarFallback>
           </Avatar>

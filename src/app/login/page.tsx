@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -98,7 +99,7 @@ export default function LoginPage() {
                     <FormLabel>Email</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="admin@example.com"
+                        placeholder="shankavisal@gmail.com"
                         {...field}
                         disabled={isLoading}
                       />

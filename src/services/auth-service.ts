@@ -1,3 +1,4 @@
+
 "use client";
 
 // This is a mock authentication service.
@@ -7,7 +8,7 @@ const AUTH_TOKEN_KEY = "digimark-auth-token";
 
 export async function login(email: string, password: string): Promise<boolean> {
   // Hardcoded credentials for the prototype
-  const isAdmin = email === "admin@example.com" && password === "password";
+  const isAdmin = email === "shankavisal@gmail.com" && password === "shankavisal1234567890";
 
   if (isAdmin) {
     try {

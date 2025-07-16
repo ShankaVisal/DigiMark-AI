@@ -84,7 +84,7 @@ export default function DashboardPage() {
                   >
                     <CarouselContent className="h-full -mt-4">
                         {ads.map((ad) => (
-                            <CarouselItem key={ad.id} className="pt-4 basis-1/1">
+                            <CarouselItem key={ad.id} className="pt-4 basis-full">
                                  <Card className="overflow-hidden h-full flex flex-col shadow-md">
                                     <CardContent className="p-0 flex flex-col flex-grow">
                                     <div className="relative w-full aspect-video">

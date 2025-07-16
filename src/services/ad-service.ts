@@ -11,10 +11,24 @@ const initialAds: Advertisement[] = [
         link: '#',
         imageUrl: 'https://placehold.co/600x400.png',
     },
-     {
+    {
         id: 'ad-2',
         title: 'New AI Features',
         description: 'Discover our latest AI-powered content generation tools.',
+        link: '#',
+        imageUrl: 'https://placehold.co/600x400.png',
+    },
+    {
+        id: 'ad-3',
+        title: 'Summer Sale!',
+        description: 'Get 50% off on all annual plans for a limited time.',
+        link: '#',
+        imageUrl: 'https://placehold.co/600x400.png',
+    },
+    {
+        id: 'ad-4',
+        title: 'Join Our Webinar',
+        description: 'Learn social media marketing secrets from the experts.',
         link: '#',
         imageUrl: 'https://placehold.co/600x400.png',
     }

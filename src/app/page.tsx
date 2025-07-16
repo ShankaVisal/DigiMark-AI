@@ -4,10 +4,18 @@ import {
   SidebarHeader,
   SidebarInset,
   SidebarTrigger,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarFooter,
 } from "@/components/ui/sidebar";
 import { AIAssistant } from "@/components/ai-assistant";
 import { ToolGrid } from "@/components/tool-grid";
 import { DigiMarkLogo } from "@/components/icons";
+import { Button } from "@/components/ui/button";
+import { LogIn } from "lucide-react";
+import Link from "next/link";
+import { UserAvatar } from "@/components/user-avatar";
 
 export default function DashboardPage() {
   return (
@@ -15,7 +23,7 @@ export default function DashboardPage() {
       <Sidebar
         variant="sidebar"
         collapsible="icon"
-        className="border-r border-sidebar-border"
+        className="border-r border-sidebar-border bg-sidebar"
       >
         <SidebarHeader className="h-14">
           <div className="flex items-center gap-2.5">
@@ -25,22 +33,33 @@ export default function DashboardPage() {
             </h2>
           </div>
         </SidebarHeader>
-        <SidebarContent>
+        <SidebarContent className="p-2">
           <AIAssistant />
         </SidebarContent>
+        <SidebarFooter className="p-2">
+          <UserAvatar />
+        </SidebarFooter>
       </Sidebar>
       <SidebarInset>
         <main className="flex flex-1 flex-col">
-          <header className="sticky top-0 z-10 flex h-14 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm sm:px-6">
-            <SidebarTrigger className="md:hidden" />
-            <div>
-              <h1 className="text-xl font-bold tracking-tight">
-                Digital Marketing Toolkit
-              </h1>
-              <p className="text-xs text-muted-foreground">
-                Your AI-powered hub for top-tier marketing tools.
-              </p>
+          <header className="sticky top-0 z-10 flex h-16 items-center justify-between gap-4 border-b bg-background/80 px-4 backdrop-blur-sm sm:px-6">
+            <div className="flex items-center gap-2">
+              <SidebarTrigger className="md:hidden" />
+              <div>
+                <h1 className="text-xl font-bold tracking-tight">
+                  Digital Marketing Toolkit
+                </h1>
+                <p className="text-xs text-muted-foreground">
+                  Your AI-powered hub for top-tier marketing tools.
+                </p>
+              </div>
             </div>
+            <Button asChild variant="outline">
+              <Link href="/login">
+                <LogIn className="mr-2 h-4 w-4" />
+                Admin Login
+              </Link>
+            </Button>
           </header>
           <div className="flex-1 overflow-auto p-4 sm:p-6">
             <ToolGrid />

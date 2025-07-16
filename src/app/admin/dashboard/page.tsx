@@ -7,16 +7,14 @@ import { Button } from "@/components/ui/button";
 import { ToolGrid } from "@/components/tool-grid";
 import { AddToolDialog } from "@/components/add-tool-dialog";
 import { isLoggedIn, logout } from '@/services/auth-service';
-import { Loader2, PlusCircle, LogOut, Settings, Annoyed } from 'lucide-react';
+import { Loader2, PlusCircle, LogOut, Settings } from 'lucide-react';
 import { ManageCategoriesDialog } from '@/components/manage-categories-dialog';
-import { ManageAdsDialog } from '@/components/manage-ads-dialog';
 
 export default function AdminDashboardPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [isAddToolDialogOpen, setAddToolDialogOpen] = useState(false);
   const [isManageCategoriesDialogOpen, setManageCategoriesDialogOpen] = useState(false);
-  const [isManageAdsDialogOpen, setManageAdsDialogOpen] = useState(false);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -59,10 +57,6 @@ export default function AdminDashboardPage() {
                 <Settings className="mr-2 h-4 w-4" />
                 Manage Categories
             </Button>
-             <Button variant="outline" onClick={() => setManageAdsDialogOpen(true)}>
-                <Annoyed className="mr-2 h-4 w-4" />
-                Manage Ads
-            </Button>
             <Button variant="outline" onClick={handleLogout}>
                 <LogOut className="mr-2 h-4 w-4" />
                 Logout
@@ -74,7 +68,6 @@ export default function AdminDashboardPage() {
       </main>
       <AddToolDialog isOpen={isAddToolDialogOpen} onOpenChange={setAddToolDialogOpen} />
       <ManageCategoriesDialog isOpen={isManageCategoriesDialogOpen} onOpenChange={setManageCategoriesDialogOpen} />
-      <ManageAdsDialog isOpen={isManageAdsDialogOpen} onOpenChange={setManageAdsDialogOpen} />
     </div>
   );
 }

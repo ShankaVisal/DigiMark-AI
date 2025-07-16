@@ -58,7 +58,7 @@ export default function DashboardPage() {
         <footer className="mt-auto border-t py-4 text-center text-sm text-muted-foreground">
             Created by{' '}
             <a
-                href="https://shankavisal.me"
+                href="https://shankavisal.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-medium text-primary underline-offset-4 hover:underline"

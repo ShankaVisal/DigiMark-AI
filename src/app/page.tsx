@@ -1,3 +1,7 @@
+
+"use client";
+
+import React, { useState, useEffect } from "react";
 import {
   Sidebar,
   SidebarContent,
@@ -13,8 +17,28 @@ import Link from "next/link";
 import { UserAvatar } from "@/components/user-avatar";
 import Image from 'next/image';
 import { Card, CardContent } from "@/components/ui/card";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import type { Advertisement } from "@/lib/ads";
+import { fetchAds } from "@/services/ad-service";
 
 export default function DashboardPage() {
+    const [ads, setAds] = useState<Advertisement[]>([]);
+    const [isLoadingAds, setIsLoadingAds] = useState(true);
+
+    useEffect(() => {
+        const loadAds = async () => {
+            try {
+                const fetchedAds = await fetchAds();
+                setAds(fetchedAds);
+            } catch (error) {
+                console.error("Failed to load ads:", error);
+            } finally {
+                setIsLoadingAds(false);
+            }
+        };
+        loadAds();
+    }, []);
+
   return (
     <div className="relative flex min-h-screen w-full">
       <Sidebar
@@ -32,26 +56,48 @@ export default function DashboardPage() {
         </SidebarHeader>
         <SidebarContent className="flex-1 p-2">
             <div className="group-data-[collapsible=icon]:hidden">
-                <Card className="overflow-hidden bg-background/50">
-                    <CardContent className="p-2">
-                        <div className="aspect-video relative">
-                            <Image 
-                                src="https://placehold.co/600x400.png"
-                                alt="Advertisement"
-                                fill
-                                className="rounded-md object-cover"
-                                data-ai-hint="digital marketing"
-                            />
-                        </div>
-                        <div className="p-2">
-                            <h3 className="text-sm font-semibold">Boost Your Reach</h3>
-                            <p className="text-xs text-muted-foreground mt-1 mb-3">Upgrade to Pro for exclusive tools and insights.</p>
-                            <Button size="sm" className="w-full">
-                                Learn More <ArrowRight className="ml-2 size-3.5"/>
-                            </Button>
-                        </div>
-                    </CardContent>
-                </Card>
+                {!isLoadingAds && ads.length > 0 && (
+                     <Carousel 
+                        className="w-full"
+                        opts={{
+                            loop: true,
+                        }}
+                     >
+                        <CarouselContent>
+                            {ads.map((ad) => (
+                                <CarouselItem key={ad.id}>
+                                    <Card className="overflow-hidden bg-background/50">
+                                        <CardContent className="p-2">
+                                            <div className="aspect-video relative">
+                                                <Image 
+                                                    src={ad.imageUrl}
+                                                    alt={ad.title}
+                                                    fill
+                                                    className="rounded-md object-cover"
+                                                />
+                                            </div>
+                                            <div className="p-2">
+                                                <h3 className="text-sm font-semibold">{ad.title}</h3>
+                                                <p className="text-xs text-muted-foreground mt-1 mb-3">{ad.description}</p>
+                                                <Button size="sm" className="w-full" asChild>
+                                                    <a href={ad.link} target="_blank" rel="noopener noreferrer">
+                                                        Learn More <ArrowRight className="ml-2 size-3.5"/>
+                                                    </a>
+                                                </Button>
+                                            </div>
+                                        </CardContent>
+                                    </Card>
+                                </CarouselItem>
+                            ))}
+                        </CarouselContent>
+                        {ads.length > 1 && (
+                            <>
+                                <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2" />
+                                <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2" />
+                            </>
+                        )}
+                    </Carousel>
+                )}
             </div>
         </SidebarContent>
         <div className="p-2 mt-auto">

@@ -32,8 +32,8 @@ import {
 } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
-import { addTool, fetchCategories } from '@/services/tool-service';
-import type { ToolCategory } from '@/lib/tools';
+import { updateTool, fetchCategories } from '@/services/tool-service';
+import type { Tool, ToolCategory } from '@/lib/tools';
 
 const formSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters.'),
@@ -47,12 +47,13 @@ const availableIcons = [
   "ImageIcon", "PenSquare", "BotMessageSquare", "TrendingUp", "Hash", "Mic", "CalendarClock", "Video"
 ];
 
-interface AddToolDialogProps {
+interface EditToolDialogProps {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
+  tool: Tool;
 }
 
-export function AddToolDialog({ isOpen, onOpenChange }: AddToolDialogProps) {
+export function EditToolDialog({ isOpen, onOpenChange, tool }: EditToolDialogProps) {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
   const [categories, setCategories] = useState<ToolCategory[]>([]);
@@ -60,44 +61,47 @@ export function AddToolDialog({ isOpen, onOpenChange }: AddToolDialogProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: '',
-      description: '',
-      link: '',
-      category: '',
-      iconName: 'PenSquare',
+      name: tool.name,
+      description: tool.description,
+      link: tool.link,
+      category: tool.category,
+      iconName: tool.iconName,
     },
   });
-  
+
   useEffect(() => {
     if (isOpen) {
-      const getCategories = async () => {
-        const fetchedCategories = await fetchCategories();
-        setCategories(fetchedCategories);
-        if (fetchedCategories.length > 0 && !form.getValues('category')) {
-          form.setValue('category', fetchedCategories[0].id);
-        }
-      };
-      getCategories();
-    }
-  }, [isOpen, form]);
+        form.reset({
+            name: tool.name,
+            description: tool.description,
+            link: tool.link,
+            category: tool.category,
+            iconName: tool.iconName,
+        });
 
+        const getCategories = async () => {
+            const fetchedCategories = await fetchCategories();
+            setCategories(fetchedCategories);
+        };
+        getCategories();
+    }
+  }, [isOpen, tool, form]);
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsLoading(true);
     try {
-      await addTool(values);
+      await updateTool(tool.id, values);
       toast({
-        title: 'Tool Added',
-        description: `Successfully added ${values.name}.`,
+        title: 'Tool Updated',
+        description: `Successfully updated ${values.name}.`,
       });
-      form.reset();
       onOpenChange(false);
       window.location.reload();
     } catch (error) {
       toast({
         variant: 'destructive',
         title: 'Error',
-        description: 'Failed to add the new tool.',
+        description: 'Failed to update the tool.',
       });
     } finally {
       setIsLoading(false);
@@ -108,9 +112,9 @@ export function AddToolDialog({ isOpen, onOpenChange }: AddToolDialogProps) {
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Add New Tool</DialogTitle>
+          <DialogTitle>Edit Tool</DialogTitle>
           <DialogDescription>
-            Fill in the details for the new marketing tool.
+            Update the details for the marketing tool.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -122,7 +126,7 @@ export function AddToolDialog({ isOpen, onOpenChange }: AddToolDialogProps) {
                 <FormItem>
                   <FormLabel>Tool Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="e.g., Awesome Tool" {...field} />
+                    <Input {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -135,7 +139,7 @@ export function AddToolDialog({ isOpen, onOpenChange }: AddToolDialogProps) {
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Input placeholder="Describe what this tool does" {...field} />
+                    <Input {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -148,7 +152,7 @@ export function AddToolDialog({ isOpen, onOpenChange }: AddToolDialogProps) {
                 <FormItem>
                   <FormLabel>Website Link</FormLabel>
                   <FormControl>
-                    <Input placeholder="https://example.com" {...field} />
+                    <Input {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -160,7 +164,7 @@ export function AddToolDialog({ isOpen, onOpenChange }: AddToolDialogProps) {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Category</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value} value={field.value}>
+                  <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Select a category" />
@@ -206,7 +210,7 @@ export function AddToolDialog({ isOpen, onOpenChange }: AddToolDialogProps) {
                <Button type="button" variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
               <Button type="submit" disabled={isLoading}>
                 {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Add Tool
+                Save Changes
               </Button>
             </DialogFooter>
           </form>

@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -6,12 +7,14 @@ import { Button } from "@/components/ui/button";
 import { ToolGrid } from "@/components/tool-grid";
 import { AddToolDialog } from "@/components/add-tool-dialog";
 import { isLoggedIn, logout } from '@/services/auth-service';
-import { Loader2, PlusCircle, LogOut } from 'lucide-react';
+import { Loader2, PlusCircle, LogOut, Settings } from 'lucide-react';
+import { ManageCategoriesDialog } from '@/components/manage-categories-dialog';
 
 export default function AdminDashboardPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isAddToolDialogOpen, setAddToolDialogOpen] = useState(false);
+  const [isManageCategoriesDialogOpen, setManageCategoriesDialogOpen] = useState(false);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -43,12 +46,16 @@ export default function AdminDashboardPage() {
       <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-4 border-b bg-background/80 px-4 backdrop-blur-sm sm:px-6">
         <div>
           <h1 className="text-xl font-bold tracking-tight">Admin Dashboard</h1>
-          <p className="text-xs text-muted-foreground">Manage your marketing tools.</p>
+          <p className="text-xs text-muted-foreground">Manage your marketing tools and categories.</p>
         </div>
         <div className="flex items-center gap-2">
-            <Button onClick={() => setIsDialogOpen(true)}>
+            <Button onClick={() => setAddToolDialogOpen(true)}>
                 <PlusCircle className="mr-2 h-4 w-4" />
                 Add Tool
+            </Button>
+            <Button variant="outline" onClick={() => setManageCategoriesDialogOpen(true)}>
+                <Settings className="mr-2 h-4 w-4" />
+                Manage Categories
             </Button>
             <Button variant="outline" onClick={handleLogout}>
                 <LogOut className="mr-2 h-4 w-4" />
@@ -59,7 +66,8 @@ export default function AdminDashboardPage() {
       <main className="p-4 sm:p-6">
         <ToolGrid isAdmin={true} />
       </main>
-      <AddToolDialog isOpen={isDialogOpen} onOpenChange={setIsDialogOpen} />
+      <AddToolDialog isOpen={isAddToolDialogOpen} onOpenChange={setAddToolDialogOpen} />
+      <ManageCategoriesDialog isOpen={isManageCategoriesDialogOpen} onOpenChange={setManageCategoriesDialogOpen} />
     </div>
   );
 }

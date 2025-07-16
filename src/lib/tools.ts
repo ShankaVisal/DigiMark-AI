@@ -1,4 +1,5 @@
-import type { LucideProps } from "lucide-react";
+
+import type { LucideIcon } from "lucide-react";
 import {
   BotMessageSquare,
   CalendarClock,
@@ -8,17 +9,11 @@ import {
   PenSquare,
   TrendingUp,
   Video,
-  LucideIcon
 } from "lucide-react";
 
-export enum ToolCategory {
-  Creation = "creation",
-  Caption = "caption",
-  Trends = "trends",
-  Hashtags = "hashtags",
-  Voiceover = "voiceover",
-  Scheduling = "scheduling",
-  Video = "video",
+export interface ToolCategory {
+  id: string;
+  name: string;
 }
 
 export interface Tool {
@@ -27,7 +22,9 @@ export interface Tool {
   description: string;
   link: string;
   icon: LucideIcon;
-  category: ToolCategory;
+  iconName: string;
+  category: string; // Corresponds to ToolCategory.id
+  categoryName?: string;
 }
 
 const iconMap: Record<string, LucideIcon> = {
@@ -45,14 +42,25 @@ export function getIconForTool(iconName: string): LucideIcon {
     return iconMap[iconName] || PenSquare;
 }
 
-export const tools: Tool[] = [
+export const initialCategories: ToolCategory[] = [
+  { id: "creation", name: "Post & Image Creation" },
+  { id: "caption", name: "Caption Generation" },
+  { id: "trends", name: "Trend Analysis" },
+  { id: "hashtags", name: "Hashtag Tools" },
+  { id: "voiceover", name: "Voiceover Tools" },
+  { id: "scheduling", name: "Content Scheduling" },
+  { id: "video", name: "Video Tools" },
+];
+
+export const initialTools: Tool[] = [
   {
     id: '1',
     name: "Canva",
     description: "User-friendly design tool for creating social media graphics.",
     link: "https://www.canva.com/",
     icon: ImageIcon,
-    category: ToolCategory.Creation,
+    iconName: 'ImageIcon',
+    category: "creation",
   },
   {
     id: '2',
@@ -60,7 +68,8 @@ export const tools: Tool[] = [
     description: "AI-powered image generation from text descriptions.",
     link: "https://www.bing.com/images/create",
     icon: PenSquare,
-    category: ToolCategory.Creation,
+    iconName: 'PenSquare',
+    category: "creation",
   },
   {
     id: '3',
@@ -68,7 +77,8 @@ export const tools: Tool[] = [
     description: "Quickly create stunning graphics, photos, and videos.",
     link: "https://www.adobe.com/express/",
     icon: ImageIcon,
-    category: ToolCategory.Creation,
+    iconName: 'ImageIcon',
+    category: "creation",
   },
   {
     id: '4',
@@ -76,7 +86,8 @@ export const tools: Tool[] = [
     description: "Generative AI for captions, ideas, and content.",
     link: "https://chat.openai.com/",
     icon: BotMessageSquare,
-    category: ToolCategory.Caption,
+    iconName: 'BotMessageSquare',
+    category: "caption",
   },
   {
     id: '5',
@@ -84,7 +95,8 @@ export const tools: Tool[] = [
     description: "Google's creative and helpful AI collaborator.",
     link: "https://gemini.google.com/",
     icon: BotMessageSquare,
-    category: ToolCategory.Caption,
+    iconName: 'BotMessageSquare',
+    category: "caption",
   },
   {
     id: '6',
@@ -92,7 +104,8 @@ export const tools: Tool[] = [
     description: "AI writer for marketing copy and content.",
     link: "https://www.copy.ai/",
     icon: PenSquare,
-    category: ToolCategory.Caption,
+    iconName: 'PenSquare',
+    category: "caption",
   },
   {
     id: '7',
@@ -100,7 +113,8 @@ export const tools: Tool[] = [
     description: "Analyze the popularity of top search queries.",
     link: "https://trends.google.com/",
     icon: TrendingUp,
-    category: ToolCategory.Trends,
+    iconName: 'TrendingUp',
+    category: "trends",
   },
   {
     id: '8',
@@ -108,7 +122,8 @@ export const tools: Tool[] = [
     description: "Discover rapidly growing topics before they take off.",
     link: "https://explodingtopics.com/",
     icon: TrendingUp,
-    category: ToolCategory.Trends,
+    iconName: 'TrendingUp',
+    category: "trends",
   },
   {
     id: '9',
@@ -116,7 +131,8 @@ export const tools: Tool[] = [
     description: "Generate top, random, or live hashtags for your posts.",
     link: "https://www.all-hashtag.com/",
     icon: Hash,
-    category: ToolCategory.Hashtags,
+    iconName: 'Hash',
+    category: "hashtags",
   },
   {
     id: '10',
@@ -124,7 +140,8 @@ export const tools: Tool[] = [
     description: "Find great keywords using Google Autocomplete.",
     link: "https://keywordtool.io/",
     icon: Hash,
-    category: ToolCategory.Hashtags,
+    iconName: 'Hash',
+    category: "hashtags",
   },
   {
     id: '11',
@@ -132,7 +149,8 @@ export const tools: Tool[] = [
     description: "AI-powered text-to-speech and voice cloning.",
     link: "https://elevenlabs.io/",
     icon: Mic,
-    category: ToolCategory.Voiceover,
+    iconName: 'Mic',
+    category: "voiceover",
   },
   {
     id: '12',
@@ -140,7 +158,8 @@ export const tools: Tool[] = [
     description: "Free and simple text-to-speech with multiple languages.",
     link: "https://ttsmp3.com/",
     icon: Mic,
-    category: ToolCategory.Voiceover,
+    iconName: 'Mic',
+    category: "voiceover",
   },
   {
     id: '13',
@@ -148,7 +167,8 @@ export const tools: Tool[] = [
     description: "Social media management for scheduling and analytics.",
     link: "https://buffer.com/",
     icon: CalendarClock,
-    category: ToolCategory.Scheduling,
+    iconName: 'CalendarClock',
+    category: "scheduling",
   },
   {
     id: '14',
@@ -156,7 +176,8 @@ export const tools: Tool[] = [
     description: "Visually plan and schedule your social media posts.",
     link: "https://later.com/",
     icon: CalendarClock,
-    category: ToolCategory.Scheduling,
+    iconName: 'CalendarClock',
+    category: "scheduling",
   },
   {
     id: '15',
@@ -164,7 +185,8 @@ export const tools: Tool[] = [
     description: "Free all-in-one video editor for everyone.",
     link: "https://www.capcut.com/",
     icon: Video,
-    category: ToolCategory.Video,
+    iconName: 'Video',
+    category: "video",
   },
   {
     id: '16',
@@ -172,6 +194,7 @@ export const tools: Tool[] = [
     description: "Create and edit professional quality videos using AI.",
     link: "https://pictory.ai/",
     icon: Video,
-    category: ToolCategory.Video,
+    iconName: 'Video',
+    category: "video",
   },
 ];

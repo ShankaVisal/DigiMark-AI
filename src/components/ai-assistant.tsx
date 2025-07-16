@@ -27,6 +27,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { generateMarketingContent } from "@/ai/flows/generate-marketing-content";
 import { getToolUseAdvice } from "@/ai/flows/get-tool-use-advice";
 import { useToast } from "@/hooks/use-toast";
+import { Separator } from "@/components/ui/separator";
 
 const contentSchema = z.object({
   platform: z.string().min(1, "Please select a platform."),

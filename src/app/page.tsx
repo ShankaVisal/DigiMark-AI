@@ -73,22 +73,22 @@ export default function DashboardPage() {
                   opts={{
                       loop: true,
                   }}
-                  orientation="vertical"
+                  orientation="horizontal"
                   autoplay
                 >
                   <CarouselContent className="h-full">
                       {ads.map((ad) => (
                           <CarouselItem key={ad.id} className="h-full">
-                              <div className="relative h-full w-full">
+                              <div className="relative h-full w-full p-2">
                                   <Image
                                       src={ad.imageUrl}
                                       alt={ad.title}
                                       fill
-                                      className="object-cover"
+                                      className="object-cover rounded-lg"
                                       priority
                                   />
-                                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                                  <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                                  <div className="absolute inset-2 rounded-lg bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                                  <div className="absolute bottom-2 left-2 right-2 p-4 text-white">
                                       <h3 className="text-base font-bold">{ad.title}</h3>
                                       <p className="text-xs text-white/80 mt-1 mb-3">{ad.description}</p>
                                       <Button size="sm" className="w-full bg-white/90 text-black hover:bg-white" asChild>
@@ -101,6 +101,8 @@ export default function DashboardPage() {
                           </CarouselItem>
                       ))}
                   </CarouselContent>
+                   <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 text-white border-none hover:bg-black/70" />
+                  <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 text-white border-none hover:bg-black/70" />
                 </Carousel>
               )}
             </div>

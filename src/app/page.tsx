@@ -4,12 +4,7 @@ import {
   SidebarHeader,
   SidebarInset,
   SidebarTrigger,
-  SidebarMenu,
-  SidebarMenuItem,
-  SidebarMenuButton,
-  SidebarFooter,
 } from "@/components/ui/sidebar";
-import { AIAssistant } from "@/components/ai-assistant";
 import { ToolGrid } from "@/components/tool-grid";
 import { DigiMarkLogo } from "@/components/icons";
 import { Button } from "@/components/ui/button";
@@ -33,12 +28,12 @@ export default function DashboardPage() {
             </h2>
           </div>
         </SidebarHeader>
-        <SidebarContent className="p-2">
-          <AIAssistant />
+        <SidebarContent className="flex-1 p-2">
+            {/* AI Assistant was here */}
         </SidebarContent>
-        <SidebarFooter className="p-2">
+        <div className="p-2 mt-auto">
           <UserAvatar />
-        </SidebarFooter>
+        </div>
       </Sidebar>
       <SidebarInset>
         <main className="flex flex-1 flex-col">

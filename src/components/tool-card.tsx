@@ -33,7 +33,7 @@ export function ToolCard({ tool, isFavorited, onToggleFavorite, isAdmin = false 
 
   return (
     <>
-      <Card className="flex flex-col h-full transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1.5 bg-card/50 backdrop-blur-sm">
+      <Card className="flex flex-col h-full transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-1 bg-card/50 backdrop-blur-sm">
         <CardHeader className="flex-row items-start gap-4 space-y-0 pb-4">
           <div className="flex items-center justify-center size-12 rounded-lg bg-primary/10">
             <Icon className="size-6 text-primary" />

@@ -20,6 +20,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import type { Advertisement } from "@/lib/ads";
 import { fetchAds } from "@/services/ad-service";
+import Autoplay from "embla-carousel-autoplay";
 
 export default function DashboardPage() {
     const [ads, setAds] = useState<Advertisement[]>([]);
@@ -75,7 +76,10 @@ export default function DashboardPage() {
                   }}
                   orientation="horizontal"
                   plugins={[
-                    require("embla-carousel-autoplay").default({ delay: 5000, stopOnInteraction: false })
+                    Autoplay({
+                      delay: 5000,
+                      stopOnInteraction: false,
+                    })
                   ]}
                 >
                   <CarouselContent className="h-full">

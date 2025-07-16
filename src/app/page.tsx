@@ -57,7 +57,7 @@ export default function DashboardPage() {
             </div>
           </SidebarHeader>
 
-          <SidebarContent className="flex-1 p-0 group-data-[collapsible=icon]:p-2">
+          <SidebarContent className="flex-1 p-0 group-data-[collapsible=icon]:p-0">
             <div className="h-full w-full group-data-[collapsible=icon]:hidden">
               {isLoadingAds ? (
                 <div className="p-4 space-y-2">
@@ -78,19 +78,19 @@ export default function DashboardPage() {
                 >
                   <CarouselContent className="h-full">
                       {ads.map((ad) => (
-                          <CarouselItem key={ad.id} className="h-full">
-                              <div className="relative h-full w-full p-2">
+                          <CarouselItem key={ad.id} className="h-full p-0">
+                              <div className="relative h-full w-full">
                                   <Image
                                       src={ad.imageUrl}
                                       alt={ad.title}
                                       fill
-                                      className="object-cover rounded-lg"
+                                      className="object-cover"
                                       priority
                                   />
-                                  <div className="absolute inset-2 rounded-lg bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                                  <div className="absolute bottom-2 left-2 right-2 p-4 text-white">
-                                      <h3 className="text-base font-bold">{ad.title}</h3>
-                                      <p className="text-xs text-white/80 mt-1 mb-3">{ad.description}</p>
+                                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                                  <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                                      <h3 className="text-lg font-bold">{ad.title}</h3>
+                                      <p className="text-sm text-white/80 mt-1 mb-3">{ad.description}</p>
                                       <Button size="sm" className="w-full bg-white/90 text-black hover:bg-white" asChild>
                                           <a href={ad.link} target="_blank" rel="noopener noreferrer">
                                               Learn More <ArrowRight className="ml-2 size-3.5"/>

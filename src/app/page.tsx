@@ -27,6 +27,7 @@ export default function DashboardPage() {
 
     useEffect(() => {
         const loadAds = async () => {
+            setIsLoadingAds(true);
             try {
                 const fetchedAds = await fetchAds();
                 setAds(fetchedAds);
@@ -58,13 +59,22 @@ export default function DashboardPage() {
 
           <SidebarContent className="flex-1 p-0 group-data-[collapsible=icon]:p-2">
             <div className="h-full w-full group-data-[collapsible=icon]:hidden">
-              {!isLoadingAds && ads.length > 0 && (
+              {isLoadingAds ? (
+                <div className="p-4 space-y-2">
+                    <div className="aspect-video w-full rounded-lg bg-muted animate-pulse"></div>
+                     <div className="space-y-1">
+                        <div className="w-3/4 h-5 rounded bg-muted animate-pulse"></div>
+                        <div className="w-full h-8 rounded bg-muted animate-pulse"></div>
+                    </div>
+                </div>
+              ) : ads.length > 0 && (
                 <Carousel
                   className="w-full h-full"
                   opts={{
                       loop: true,
                   }}
                   orientation="vertical"
+                  autoplay
                 >
                   <CarouselContent className="h-full">
                       {ads.map((ad) => (
@@ -75,6 +85,7 @@ export default function DashboardPage() {
                                       alt={ad.title}
                                       fill
                                       className="object-cover"
+                                      priority
                                   />
                                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                                   <div className="absolute bottom-0 left-0 right-0 p-4 text-white">

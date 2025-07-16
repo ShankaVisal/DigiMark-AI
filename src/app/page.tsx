@@ -8,9 +8,11 @@ import {
 import { ToolGrid } from "@/components/tool-grid";
 import { DigiMarkLogo } from "@/components/icons";
 import { Button } from "@/components/ui/button";
-import { LogIn } from "lucide-react";
+import { LogIn, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { UserAvatar } from "@/components/user-avatar";
+import Image from 'next/image';
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function DashboardPage() {
   return (
@@ -29,7 +31,28 @@ export default function DashboardPage() {
           </div>
         </SidebarHeader>
         <SidebarContent className="flex-1 p-2">
-            {/* AI Assistant was here */}
+            <div className="group-data-[collapsible=icon]:hidden">
+                <Card className="overflow-hidden bg-background/50">
+                    <CardContent className="p-2">
+                        <div className="aspect-video relative">
+                            <Image 
+                                src="https://placehold.co/600x400.png"
+                                alt="Advertisement"
+                                fill
+                                className="rounded-md object-cover"
+                                data-ai-hint="digital marketing"
+                            />
+                        </div>
+                        <div className="p-2">
+                            <h3 className="text-sm font-semibold">Boost Your Reach</h3>
+                            <p className="text-xs text-muted-foreground mt-1 mb-3">Upgrade to Pro for exclusive tools and insights.</p>
+                            <Button size="sm" className="w-full">
+                                Learn More <ArrowRight className="ml-2 size-3.5"/>
+                            </Button>
+                        </div>
+                    </CardContent>
+                </Card>
+            </div>
         </SidebarContent>
         <div className="p-2 mt-auto">
           <UserAvatar />

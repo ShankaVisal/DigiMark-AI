@@ -99,7 +99,7 @@ export default function LoginPage() {
                     <FormLabel>Email</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="shankavisal@gmail.com"
+                        placeholder="admin@example.com"
                         {...field}
                         disabled={isLoading}
                       />
@@ -117,7 +117,7 @@ export default function LoginPage() {
                     <FormControl>
                       <Input
                         type="password"
-                        placeholder="••••••••"
+                        placeholder="Enter your password"
                         {...field}
                         disabled={isLoading}
                       />

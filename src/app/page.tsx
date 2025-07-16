@@ -74,7 +74,9 @@ export default function DashboardPage() {
                       loop: true,
                   }}
                   orientation="horizontal"
-                  autoplay
+                  plugins={[
+                    require("embla-carousel-autoplay").default({ delay: 5000, stopOnInteraction: false })
+                  ]}
                 >
                   <CarouselContent className="h-full">
                       {ads.map((ad) => (

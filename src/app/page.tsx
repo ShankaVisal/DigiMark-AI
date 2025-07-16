@@ -55,6 +55,17 @@ export default function DashboardPage() {
               <ToolGrid />
           </div>
         </main>
+        <footer className="mt-auto border-t py-4 text-center text-sm text-muted-foreground">
+            Created by{' '}
+            <a
+                href="https://shankavisal.me"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-primary underline-offset-4 hover:underline"
+            >
+                Shanka Visal
+            </a>
+        </footer>
     </div>
   );
 }

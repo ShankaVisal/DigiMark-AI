@@ -46,62 +46,58 @@ export default function DashboardPage() {
         collapsible="icon"
         className="border-r border-sidebar-border bg-sidebar"
       >
-        <SidebarHeader className="h-14">
-          <div className="flex items-center gap-2.5">
-            <DigiMarkLogo className="size-6" />
-            <h2 className="text-lg font-semibold text-sidebar-foreground group-data-[collapsible=icon]:hidden">
-              DigiMark AI
-            </h2>
-          </div>
-        </SidebarHeader>
-        <SidebarContent className="flex-1 p-2">
-            <div className="group-data-[collapsible=icon]:hidden">
-                {!isLoadingAds && ads.length > 0 && (
-                     <Carousel 
-                        className="w-full"
-                        opts={{
-                            loop: true,
-                        }}
-                     >
-                        <CarouselContent>
-                            {ads.map((ad) => (
-                                <CarouselItem key={ad.id}>
-                                    <Card className="overflow-hidden bg-background/50">
-                                        <CardContent className="p-2">
-                                            <div className="aspect-video relative">
-                                                <Image 
-                                                    src={ad.imageUrl}
-                                                    alt={ad.title}
-                                                    fill
-                                                    className="rounded-md object-cover"
-                                                />
-                                            </div>
-                                            <div className="p-2">
-                                                <h3 className="text-sm font-semibold">{ad.title}</h3>
-                                                <p className="text-xs text-muted-foreground mt-1 mb-3">{ad.description}</p>
-                                                <Button size="sm" className="w-full" asChild>
-                                                    <a href={ad.link} target="_blank" rel="noopener noreferrer">
-                                                        Learn More <ArrowRight className="ml-2 size-3.5"/>
-                                                    </a>
-                                                </Button>
-                                            </div>
-                                        </CardContent>
-                                    </Card>
-                                </CarouselItem>
-                            ))}
-                        </CarouselContent>
-                        {ads.length > 1 && (
-                            <>
-                                <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2" />
-                                <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2" />
-                            </>
-                        )}
-                    </Carousel>
-                )}
+        <div className="flex h-full flex-col">
+          <SidebarHeader className="h-14">
+            <div className="flex items-center gap-2.5">
+              <DigiMarkLogo className="size-6" />
+              <h2 className="text-lg font-semibold text-sidebar-foreground group-data-[collapsible=icon]:hidden">
+                DigiMark AI
+              </h2>
             </div>
-        </SidebarContent>
-        <div className="p-2 mt-auto">
-          <UserAvatar />
+          </SidebarHeader>
+
+          <SidebarContent className="flex-1 p-0 group-data-[collapsible=icon]:p-2">
+            <div className="h-full w-full group-data-[collapsible=icon]:hidden">
+              {!isLoadingAds && ads.length > 0 && (
+                <Carousel
+                  className="w-full h-full"
+                  opts={{
+                      loop: true,
+                  }}
+                  orientation="vertical"
+                >
+                  <CarouselContent className="h-full">
+                      {ads.map((ad) => (
+                          <CarouselItem key={ad.id} className="h-full">
+                              <div className="relative h-full w-full">
+                                  <Image
+                                      src={ad.imageUrl}
+                                      alt={ad.title}
+                                      fill
+                                      className="object-cover"
+                                  />
+                                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                                  <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                                      <h3 className="text-base font-bold">{ad.title}</h3>
+                                      <p className="text-xs text-white/80 mt-1 mb-3">{ad.description}</p>
+                                      <Button size="sm" className="w-full bg-white/90 text-black hover:bg-white" asChild>
+                                          <a href={ad.link} target="_blank" rel="noopener noreferrer">
+                                              Learn More <ArrowRight className="ml-2 size-3.5"/>
+                                          </a>
+                                      </Button>
+                                  </div>
+                              </div>
+                          </CarouselItem>
+                      ))}
+                  </CarouselContent>
+                </Carousel>
+              )}
+            </div>
+          </SidebarContent>
+
+          <div className="p-2 mt-auto">
+            <UserAvatar />
+          </div>
         </div>
       </Sidebar>
       <SidebarInset>

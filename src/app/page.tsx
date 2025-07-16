@@ -17,10 +17,11 @@ import Link from "next/link";
 import { UserAvatar } from "@/components/user-avatar";
 import Image from 'next/image';
 import { Card, CardContent } from "@/components/ui/card";
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import type { Advertisement } from "@/lib/ads";
 import { fetchAds } from "@/services/ad-service";
 import Autoplay from "embla-carousel-autoplay";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function DashboardPage() {
     const [ads, setAds] = useState<Advertisement[]>([]);
@@ -58,33 +59,57 @@ export default function DashboardPage() {
             </div>
           </SidebarHeader>
 
-          <SidebarContent className="flex-1 p-2 group-data-[collapsible=icon]:p-0">
+          <SidebarContent className="flex-1 p-2 overflow-hidden group-data-[collapsible=icon]:p-0">
              <div className="h-full w-full group-data-[collapsible=icon]:hidden">
                 {isLoadingAds ? (
                   <div className="p-2 space-y-2">
-                      <div className="aspect-video w-full rounded-lg bg-muted animate-pulse"></div>
+                      <Skeleton className="aspect-video w-full rounded-lg bg-muted/50" />
+                      <Skeleton className="h-8 w-3/4 rounded-lg bg-muted/50" />
+                      <Skeleton className="h-16 w-full rounded-lg bg-muted/50" />
                   </div>
                 ) : ads.length > 0 && (
-                  <Card className="overflow-hidden">
-                    <CardContent className="p-0">
-                       <Image
-                          src={ads[0].imageUrl}
-                          alt={ads[0].title}
-                          width={300}
-                          height={150}
-                          className="object-cover w-full aspect-video"
-                        />
-                        <div className="p-3">
-                          <h3 className="font-semibold text-sm">{ads[0].title}</h3>
-                          <p className="text-xs text-muted-foreground mt-1 mb-3">{ads[0].description}</p>
-                          <Button size="sm" className="w-full" asChild>
-                            <a href={ads[0].link} target="_blank" rel="noopener noreferrer">
-                                Learn More <ArrowRight className="ml-2 size-3.5"/>
-                            </a>
-                          </Button>
-                        </div>
-                    </CardContent>
-                  </Card>
+                  <Carousel
+                    className="h-full w-full"
+                    opts={{
+                        loop: true,
+                        align: "start",
+                    }}
+                    orientation="vertical"
+                    plugins={[
+                        Autoplay({
+                            delay: 4000,
+                            stopOnInteraction: false,
+                        })
+                    ]}
+                  >
+                    <CarouselContent className="h-full -mt-4">
+                        {ads.map((ad) => (
+                            <CarouselItem key={ad.id} className="pt-4 basis-1/3">
+                                 <Card className="overflow-hidden h-full flex flex-col">
+                                    <CardContent className="p-0 flex flex-col flex-grow">
+                                    <div className="relative w-full aspect-video">
+                                        <Image
+                                            src={ad.imageUrl}
+                                            alt={ad.title}
+                                            fill
+                                            className="object-cover"
+                                        />
+                                    </div>
+                                    <div className="p-3 flex flex-col flex-grow">
+                                        <h3 className="font-semibold text-sm">{ad.title}</h3>
+                                        <p className="text-xs text-muted-foreground mt-1 mb-3 flex-grow">{ad.description}</p>
+                                        <Button size="sm" className="w-full mt-auto" asChild>
+                                            <a href={ad.link} target="_blank" rel="noopener noreferrer">
+                                                Learn More <ArrowRight className="ml-2 size-3.5"/>
+                                            </a>
+                                        </Button>
+                                    </div>
+                                    </CardContent>
+                                </Card>
+                            </CarouselItem>
+                        ))}
+                    </CarouselContent>
+                  </Carousel>
                 )}
              </div>
           </SidebarContent>
@@ -116,50 +141,6 @@ export default function DashboardPage() {
             </Button>
           </header>
           <div className="flex-1 overflow-auto p-4 sm:p-6">
-             {isLoadingAds ? (
-                <div className="w-full h-48 rounded-lg bg-muted animate-pulse mb-6"></div>
-              ) : ads.length > 0 && (
-                <Carousel
-                  className="w-full rounded-lg overflow-hidden mb-6"
-                  opts={{
-                      loop: true,
-                  }}
-                  plugins={[
-                    Autoplay({
-                      delay: 5000,
-                      stopOnInteraction: false,
-                    })
-                  ]}
-                >
-                  <CarouselContent>
-                      {ads.map((ad) => (
-                          <CarouselItem key={ad.id}>
-                              <div className="relative h-48 w-full">
-                                  <Image
-                                      src={ad.imageUrl}
-                                      alt={ad.title}
-                                      fill
-                                      className="object-cover"
-                                      priority
-                                  />
-                                  <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
-                                  <div className="absolute top-1/2 left-12 -translate-y-1/2 text-white max-w-md">
-                                      <h3 className="text-2xl font-bold">{ad.title}</h3>
-                                      <p className="text-sm text-white/80 mt-2 mb-4">{ad.description}</p>
-                                      <Button size="sm" className="bg-white/90 text-black hover:bg-white" asChild>
-                                          <a href={ad.link} target="_blank" rel="noopener noreferrer">
-                                              Learn More <ArrowRight className="ml-2 size-3.5"/>
-                                          </a>
-                                      </Button>
-                                  </div>
-                              </div>
-                          </CarouselItem>
-                      ))}
-                  </CarouselContent>
-                   <CarouselPrevious className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 text-white border-none hover:bg-black/70" />
-                  <CarouselNext className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 text-white border-none hover:bg-black/70" />
-                </Carousel>
-              )}
             <ToolGrid />
           </div>
         </main>

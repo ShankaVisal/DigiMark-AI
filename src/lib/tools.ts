@@ -81,6 +81,15 @@ export const initialTools: Tool[] = [
     category: "creation",
   },
   {
+    id: '17',
+    name: "ImageFX",
+    description: "Explore image generation with this tool from Google Labs.",
+    link: "https://labs.google/fx/tools/image-fx",
+    icon: ImageIcon,
+    iconName: 'ImageIcon',
+    category: "creation",
+  },
+  {
     id: '4',
     name: "ChatGPT",
     description: "Generative AI for captions, ideas, and content.",
@@ -198,3 +207,4 @@ export const initialTools: Tool[] = [
     category: "video",
   },
 ];
+

@@ -91,8 +91,7 @@ export function ToolGrid({ isAdmin = false }: ToolGridProps) {
         category,
         tools: tools.filter((tool) => tool.category === category.id),
       }))
-      .filter(cat => cat.tools.length > 0)
-      .sort((a, b) => a.category.name.localeCompare(b.category.name));
+      .filter(cat => cat.tools.length > 0);
   }, [tools, categories]);
 
 

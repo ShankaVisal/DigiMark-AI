@@ -44,12 +44,12 @@ export function getIconForTool(iconName: string): LucideIcon {
 
 export const initialCategories: ToolCategory[] = [
   { id: "creation", name: "Post & Image Creation" },
+  { id: "video", name: "Video Tools" },
   { id: "caption", name: "Caption Generation" },
   { id: "trends", name: "Trend Analysis" },
   { id: "hashtags", name: "Hashtag Tools" },
   { id: "voiceover", name: "Voiceover Tools" },
   { id: "scheduling", name: "Content Scheduling" },
-  { id: "video", name: "Video Tools" },
 ];
 
 export const initialTools: Tool[] = [

@@ -4,7 +4,7 @@
 import React from "react";
 import { ToolGrid } from "@/components/tool-grid";
 import { Button } from "@/components/ui/button";
-import { LogIn } from "lucide-react";
+import { LayoutDashboard } from "lucide-react";
 import Link from "next/link";
 
 export default function DashboardPage() {
@@ -21,9 +21,9 @@ export default function DashboardPage() {
             </p>
           </div>
           <Button asChild variant="outline">
-            <Link href="/login">
-              <LogIn className="mr-2 h-4 w-4" />
-              Admin Login
+            <Link href="/admin/dashboard">
+              <LayoutDashboard className="mr-2 h-4 w-4" />
+              Admin Dashboard
             </Link>
           </Button>
         </header>

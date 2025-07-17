@@ -23,7 +23,7 @@ export default function DashboardPage() {
           <Button asChild variant="outline">
             <Link href="/admin/dashboard">
               <LayoutDashboard className="mr-2 h-4 w-4" />
-              Admin Dashboard
+              Add Item
             </Link>
           </Button>
         </header>

@@ -18,7 +18,7 @@ export default function AdminDashboardPage() {
     <div className="min-h-screen bg-muted/40">
       <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-4 border-b bg-background/80 px-4 backdrop-blur-sm sm:px-6">
         <div>
-          <h1 className="text-xl font-bold tracking-tight">Add Items</h1>
+          <h1 className="text-xl font-bold tracking-tight">Manage Tools</h1>
           <p className="text-xs text-muted-foreground">Manage your marketing tools and categories.</p>
         </div>
         <div className="flex items-center gap-2">
